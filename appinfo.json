@@ -9,6 +9,22 @@
     "resources": {
         "media": [
             {
+                "file": "images/airplane.png",
+                "name": "IMAGE_AIRPLANE",
+                "type": "png"
+            },
+            {
+                "file": "fonts/Roboto-ThinItalic.ttf",
+                "name": "FONT_ROBOTO_ITALIC_18",
+                "type": "font"
+            },
+            {
+                "file": "images/Title_image.png",
+                "menuIcon": true,
+                "name": "IMAGE_TITLE",
+                "type": "png"
+            },
+            {
                 "file": "fonts/Roboto-Light.ttf",
                 "name": "FONT_ROBOTO_LIGHT_20",
                 "type": "font"
