@@ -3,8 +3,8 @@
     "capabilities": [
         ""
     ],
-    "companyName": "lukas.gygi@gmail.com",
-    "longName": "Panorama",
+    "companyName": "Lukas Gygi",
+    "longName": "Panoramic",
     "projectType": "native",
     "resources": {
         "media": [
@@ -16,6 +16,7 @@
             {
                 "file": "fonts/Roboto-ThinItalic.ttf",
                 "name": "FONT_ROBOTO_ITALIC_18",
+                "trackingAdjust": 1,
                 "type": "font"
             },
             {
@@ -25,11 +26,7 @@
                 "type": "png"
             },
             {
-                "file": "fonts/Roboto-Light.ttf",
-                "name": "FONT_ROBOTO_LIGHT_20",
-                "type": "font"
-            },
-            {
+                "characterRegex": "[0-9:]",
                 "file": "fonts/RobotoSlab-Light.ttf",
                 "name": "FONT_ROBOTO_47",
                 "type": "font"
@@ -41,7 +38,7 @@
             }
         ]
     },
-    "shortName": "Panorama",
+    "shortName": "Panoramic",
     "uuid": "44cbd93a-8b7b-4557-b7a2-fa3b093c89ea",
     "versionCode": 1,
     "versionLabel": "1.0",

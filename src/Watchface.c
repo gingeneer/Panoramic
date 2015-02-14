@@ -3,11 +3,9 @@
 static Window *s_main_window;
 static TextLayer *s_time_layer;
 static TextLayer *s_date_layer;
-//static TextLayer *s_seconds_layer;
 
 static GFont s_time_font;
 static GFont s_date_font;
-//static GFont s_seconds_font;
 static BitmapLayer *s_background_layer;
 static BitmapLayer *s_airplane_layer;
 static GBitmap *s_background_bitmap;
@@ -39,11 +37,8 @@ static void update_time() {
   struct tm *tick_time = localtime(&temp);
   
   //update seconds
-  //static char seconds_text[] = "00";
-  //strftime(seconds_text, sizeof("00"), "%S", tick_time);
-  //text_layer_set_text(s_seconds_layer, NULL);
-  int x = (2.55*tick_time->tm_sec)-6;
-  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 20, 6, 3));
+  int x = (2.60*tick_time->tm_sec)-6;
+  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 4));
     
   //update time
   static char time_text[] = "00:00";
@@ -74,7 +69,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
   
   s_airplane_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_AIRPLANE);
-  s_airplane_layer = bitmap_layer_create(GRect(-6, 20, 6, 3));
+  s_airplane_layer = bitmap_layer_create(GRect(-6, 10, 6, 4));
   bitmap_layer_set_bitmap(s_airplane_layer, s_airplane_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_airplane_layer));
   
@@ -86,15 +81,6 @@ static void main_window_load(Window *window) {
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_47));
   text_layer_set_font(s_time_layer, s_time_font);
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
-  
-  /*s_seconds_layer = text_layer_create(GRect(118, 107, 24, 28));
-  text_layer_set_text_color(s_seconds_layer, GColorWhite);
-  text_layer_set_background_color(s_seconds_layer, GColorClear);
-  text_layer_set_text(s_seconds_layer, "00");
-  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_seconds_layer));
-  s_seconds_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_LIGHT_20));
-  text_layer_set_font(s_seconds_layer, s_seconds_font);
-  text_layer_set_text_alignment(s_seconds_layer, GTextAlignmentLeft);*/
   
   s_date_layer = text_layer_create(GRect(0, 140, 144, 23));
   text_layer_set_text_color(s_date_layer, GColorWhite);
