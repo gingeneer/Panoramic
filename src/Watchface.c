@@ -38,7 +38,7 @@ static void update_time() {
   
   //update seconds
   int x = (2.60*tick_time->tm_sec)-6;
-  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 4));
+  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 2));
     
   //update time
   static char time_text[] = "00:00";
@@ -69,7 +69,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
   
   s_airplane_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_AIRPLANE);
-  s_airplane_layer = bitmap_layer_create(GRect(-6, 10, 6, 4));
+  s_airplane_layer = bitmap_layer_create(GRect(-9, 10, 9, 2));
   bitmap_layer_set_bitmap(s_airplane_layer, s_airplane_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_airplane_layer));
   
