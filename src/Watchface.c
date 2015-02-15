@@ -37,7 +37,7 @@ static void update_time() {
   struct tm *tick_time = localtime(&temp);
   
   //update seconds
-  int x = (2.60*tick_time->tm_sec)-6;
+  int x = (2.60*tick_time->tm_sec)-9;
   layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 2));
     
   //update time
