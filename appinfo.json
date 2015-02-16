@@ -41,7 +41,7 @@
     "shortName": "Panoramic",
     "uuid": "44cbd93a-8b7b-4557-b7a2-fa3b093c89ea",
     "versionCode": 1,
-    "versionLabel": "1.1",
+    "versionLabel": "1.2",
     "watchapp": {
         "watchface": true
     }

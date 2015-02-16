@@ -36,17 +36,13 @@ static void update_time() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
   
-  //update seconds
-  int x = (2.60*tick_time->tm_sec)-9;
-  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 2));
-    
   //update time
   static char time_text[] = "00:00";
   if(clock_is_24h_style() == true) {
     //use 24h time
-    strftime(time_text, sizeof("00:00"), "%H:%M", tick_time);
+     strftime(time_text, sizeof("00:00"), "%H:%M", tick_time);
   }
-  else {
+  else{
     //12h time
     strftime(time_text, sizeof("00:00"), "%I:%M", tick_time);
   }
@@ -57,8 +53,22 @@ static void update_time() {
   }
 }
 
+static void update_seconds(){
+  //get a tm structure
+  time_t temp = time(NULL);
+  struct tm *tick_time = localtime(&temp);
+  
+  //update seconds
+  int x = (2.58*tick_time->tm_sec)-9;
+  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 2));
+  
+  if(tick_time->tm_sec==0){
+    update_time();
+  }
+}
+
 static void tick_handler(struct tm *ticktime, TimeUnits units_changed){
-  update_time();
+  update_seconds();
 }
 
 static void main_window_load(Window *window) {
@@ -119,6 +129,7 @@ static void init() {
   window_stack_push(s_main_window, true);
   
   //display time at start
+  update_seconds();
   update_time();
   update_date();
   
