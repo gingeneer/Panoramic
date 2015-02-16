@@ -10,6 +10,7 @@ static BitmapLayer *s_background_layer;
 static BitmapLayer *s_airplane_layer;
 static GBitmap *s_background_bitmap;
 static GBitmap *s_airplane_bitmap;
+int s_randomheight;
 
 static void bluetooth_connection_callback(bool connected) {
   if(!connected)
@@ -36,6 +37,9 @@ static void update_time() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
   
+  //create random height for plane
+  s_randomheight = rand() % 31;
+  
   //update time
   static char time_text[] = "00:00";
   if(clock_is_24h_style() == true) {
@@ -60,7 +64,7 @@ static void update_seconds(){
   
   //update seconds
   int x = (2.58*tick_time->tm_sec)-9;
-  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, 10, 9, 2));
+  layer_set_frame(bitmap_layer_get_layer(s_airplane_layer), GRect(x, s_randomheight, 9, 2));
   
   if(tick_time->tm_sec==0){
     update_time();
@@ -72,17 +76,17 @@ static void tick_handler(struct tm *ticktime, TimeUnits units_changed){
 }
 
 static void main_window_load(Window *window) {
-  // Create GBitmap, then set to created BitmapLayer
+  // Background
   s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
   s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
   bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
-  
+  //airplane seconds display
   s_airplane_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_AIRPLANE);
   s_airplane_layer = bitmap_layer_create(GRect(-9, 10, 9, 2));
   bitmap_layer_set_bitmap(s_airplane_layer, s_airplane_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_airplane_layer));
-  
+  //Time display
   s_time_layer = text_layer_create(GRect(0, 77, 144, 58));
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, GColorWhite);
@@ -91,7 +95,7 @@ static void main_window_load(Window *window) {
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_47));
   text_layer_set_font(s_time_layer, s_time_font);
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
-  
+  //Weekday and date
   s_date_layer = text_layer_create(GRect(0, 140, 144, 23));
   text_layer_set_text_color(s_date_layer, GColorWhite);
   text_layer_set_background_color(s_date_layer, GColorClear);
@@ -117,8 +121,9 @@ static void main_window_unload(Window *window) {
   
 static void init() {
   // Create main Window element and assign to pointer
+  srand(time(NULL));
   s_main_window = window_create();
-
+  
   // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers) {
     .load = main_window_load,
@@ -129,9 +134,9 @@ static void init() {
   window_stack_push(s_main_window, true);
   
   //display time at start
-  update_seconds();
   update_time();
   update_date();
+  update_seconds();
   
   //register with TickTimerService
   tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
