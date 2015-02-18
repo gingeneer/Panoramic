@@ -23,7 +23,7 @@ static void update_date() {
   //get a tm structure
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
-  static char date_text[] = "XXXXXXXX XX";
+  static char date_text[] = "XXXXXXXXX XX";
   strftime(date_text, sizeof(date_text), "%A %e", tick_time);
   //convert date to caps
   for(int i=0; i<(int)(strlen(date_text)); i++){
